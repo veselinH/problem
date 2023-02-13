@@ -15,19 +15,30 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/users")
 public class UserController {
 
+    @ModelAttribute
+    public UserRegisterDto userRegisterDto() {
+        return new UserRegisterDto();
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @GetMapping("/register")
-    public String register(){
+    public String register() {
 
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerConfirm(@Valid UserRegisterDto userRegisterDto, BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes){
+    public String registerConfirm(@Valid UserRegisterDto userRegisterDto,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes) {
 
-        if(bindingResult.hasErrors() ||! userRegisterDto.getPassword().equals(userRegisterDto.getConfirmPassword())){
-            redirectAttributes.addAttribute("userRegisterDto",userRegisterDto);
-            redirectAttributes.addAttribute("org.springframework.validation.BindingResult.userRegisterDto",bindingResult);
+        if (bindingResult.hasErrors() || !userRegisterDto.getPassword().equals(userRegisterDto.getConfirmPassword())) {
+            redirectAttributes.addFlashAttribute("userRegisterDto", userRegisterDto);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDto", bindingResult);
 
             return "redirect:register";
 
@@ -41,11 +52,8 @@ public class UserController {
 
 
     @ModelAttribute
-    public UserLoginDto userLoginDto(){
+    public UserLoginDto userLoginDto() {
         return new UserLoginDto();
     }
-    @ModelAttribute
-    public UserRegisterDto userRegisterDto(){
-        return new UserRegisterDto();
-    }
+
 }

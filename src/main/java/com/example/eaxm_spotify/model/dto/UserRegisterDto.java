@@ -5,13 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class UserRegisterDto {
-    @Size(min = 5,max = 10,message = "USERNAMEEEEEEEE")
     private String username;
-    @Size(min = 5,max = 10,message = "USERNAMEEEEEEEE")
     private String password;
-    @Email(message = "EMAILLLLLL")
     private String email;
-    @Size(min = 5,max = 10,message = "USERNAMEEEEEEEE")
     private String confirmPassword;
 
     public UserRegisterDto() {
